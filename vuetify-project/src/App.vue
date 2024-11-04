@@ -38,6 +38,9 @@
 import { ref } from 'vue';
 import { VApp, VAppBar, VAppBarTitle, VBtn, VIcon, VMain, VContainer, VRow, VCol, VCard } from 'vuetify/components';
 
+const drawer = ref(true); // Set to true to show the drawer by default
+
+
 // patient profile data
 const patientProfile = ref({
   race: 'White',
