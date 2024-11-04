@@ -17,11 +17,12 @@
           <v-row>
             <v-col cols="6">
               <v-card
-                class="custom-card"
+                :class="['custom-card', { 'highlighted-card': selectedCard === 1 }]"
                 rounded="lg"
                 subtitle="Matt Damon"
                 target="_blank"
                 title="Patient 1"
+                @click="selectCard(1)"
               >
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -45,11 +46,12 @@
 
             <v-col cols="6">
               <v-card
-              class="custom-card"
+              :class="['custom-card', { 'highlighted-card': selectedCard === 2 }]"
                 rounded="lg"
                 subtitle="Jaden Smith"
                 target="_blank"
                 title="Patient 2"
+                @click="selectCard(2)"
               >
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -73,11 +75,12 @@
 
             <v-col cols="6">
               <v-card
-                class="custom-card"
+                :class="['custom-card', { 'highlighted-card': selectedCard === 3 }]"
                 rounded="lg"
                 subtitle="Constance Wu"
                 target="_blank"
                 title="Patient 3"
+                @click="selectCard(3)"
               >
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -125,11 +128,17 @@
   import { ref } from 'vue'
 // Array to hold the dropdown state for each card
 const show = ref([false, false, false]) // Use as many slots as you have cards
+const selectedCard = ref<number | null>(null);
 
 // Function to toggle the dropdown for a specific card
 const toggleDropdown = (index: number) => {
   show.value[index] = !show.value[index]
   console.log("card " + index)
+}
+
+const selectCard = (index: number) => {
+  selectedCard.value = selectedCard.value === index ? null : index; // Toggle selection
+  console.log("selected card " + selectedCard.value);
 }
 </script>
 
@@ -142,6 +151,11 @@ const toggleDropdown = (index: number) => {
   border: 2px solid rgba(109, 105, 105, 0.2); /* Light gray border */
   color: black;
   background-color: white !important; /* Force a white background */
+}
+
+.highlighted-card {
+  background-color: #46b3d8 !important; /* Light blue background */
+  color: black;/* Change text color for contrast */
 }
 
 .v-card-title, .v-card-subtitle, .v-card-text {
