@@ -92,7 +92,7 @@
 
           <!-- Return to Home Button -->
           <v-row justify="center" class="mt-8">
-            <v-btn color="#1976D2" style="width: 200px; height: 50px;" text="Return to Home" href="/"></v-btn> 
+            <v-btn color="#1976D2" style="width: 200px; height: 50px;" href="/">Return to Home</v-btn>
           </v-row>
 
         </v-responsive>
