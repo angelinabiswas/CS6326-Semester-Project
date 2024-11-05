@@ -1,12 +1,12 @@
 <template>
-  <v-app>
-    <v-app-bar :elevation="2" color="white"> <!-- Set background color to white -->
-      <template v-slot:prepend>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      </template>
-      <v-spacer></v-spacer>
-      <v-app-bar-title class="text-center" style="color: blue;">DocBot</v-app-bar-title> 
-      <v-spacer></v-spacer>
+  <v-app class="custom-theme">
+    <v-app-bar app color="#f0f4f8" class="app-bar">
+      <v-btn icon>
+        <v-icon color="black">mdi-home</v-icon>
+      </v-btn>
+      <v-spacer />
+      <v-app-bar-title class="docbot-title">DOCBOT</v-app-bar-title>
+      <v-spacer />
     </v-app-bar>
     <v-main style="background-color: white">
       <v-container class="fill-height">
@@ -46,7 +46,7 @@
 
             <v-col cols="6">
               <v-card
-              :class="['custom-card', { 'highlighted-card': selectedCard === 2 }]"
+                :class="['custom-card', { 'highlighted-card': selectedCard === 2 }]"
                 rounded="lg"
                 subtitle="Jaden Smith"
                 target="_blank"
@@ -104,11 +104,11 @@
 
             <v-col cols="6">
               <v-card
-                href="createPatient.vue"
                 class="custom-card"
                 rounded="lg"
                 target="_blank"
-                title="Create a Patient"
+                title="Create a Patient!"
+                @click="selectCard(4)"
                 append-icon="mdi-plus"
               >
               </v-card>
@@ -124,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-  //
+
   import { ref } from 'vue'
 // Array to hold the dropdown state for each card
 const show = ref([false, false, false]) // Use as many slots as you have cards
@@ -137,20 +137,16 @@ const toggleDropdown = (index: number) => {
 }
 
 const selectCard = (index: number) => {
-  selectedCard.value = selectedCard.value === index ? null : index; // Toggle selection
+  selectedCard.value = selectedCard.value === index ? null : index;
   console.log("selected card " + selectedCard.value);
 }
 </script>
 
 <style>
-.bg-white {
-  background-color: white;
-}
-
 .custom-card {
-  border: 2px solid rgba(109, 105, 105, 0.2); /* Light gray border */
+  border: 2px solid rgba(109, 105, 105, 0.2);
   color: black;
-  background-color: white !important; /* Force a white background */
+  background-color: white !important; 
 }
 
 .highlighted-card {
@@ -158,12 +154,67 @@ const selectCard = (index: number) => {
   color: black;/* Change text color for contrast */
 }
 
-.v-card-title, .v-card-subtitle, .v-card-text {
+.custom-theme .v-card-title, .v-card-subtitle, .v-card-text {
   color: black
 }
 
-.v-icon{
+.custom-theme.v-icon{
   background: none !important;
   color: black;
+}
+
+.custom-theme .docbot-title {
+  color: #1976D2;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.custom-theme .submit-btn {
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  font-weight: bold;
+  transition: 0.3s ease;
+  margin-right: 50px;
+}
+
+.custom-theme .submit-btn:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.custom-theme .sidebar-title {
+  font-weight: bold;
+  width: 100%; 
+  font-size: 1.2rem;
+  padding: 16px;
+}
+
+.custom-theme .patient-info-card {
+  margin: 8px 0;
+}
+
+.custom-theme .info-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.custom-theme .v-icon {
+  color: black;
+}
+
+.custom-theme .symptoms-list {
+  padding-left: 16px; 
+  list-style-type: disc; 
+  margin: 8px 0; 
+}
+
+.custom-theme .bias-select {
+  border: 2px solid blue; 
+  border-radius: 4px; 
+}
+
+.custom-theme .bias-select:hover {
+  background-color: rgba(0, 0, 255, 0.1); 
 }
 </style>
