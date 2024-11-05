@@ -53,42 +53,47 @@
 
     <!-- Main Content -->
     <v-main style="background-color: white">
-      <v-container class="fill-height">
-        <v-responsive class="align-center fill-height mx-auto" max-width="900">
+      <v-container class="fill-height" fluid>
+        <v-responsive class="align-center fill-height mx-auto" max-width="1200px">
 
-      <!-- Diagnosis Cards -->
-      <v-row>
-        <v-col cols="12" md="6" lg="6" v-for="(diagnosis, index) in diagnoses" :key="index">
-          <v-card class="custom-card" rounded="lg" style="height: 150px;"> 
-            <v-card-title class="text-h6">Diagnosis: {{ diagnosis }}</v-card-title>
-            <v-card-actions>
-              <v-row justify="center" style="width: 100%;">
-                <v-menu offset-y>
-                  <template #activator="{ on }">
-                    <v-btn outlined color="blue" v-on="on">
-                      {{ selectedBias[index] || 'Select Bias Level' }}
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item
-                      v-for="(option, optionIndex) in biasOptions"
-                      :key="optionIndex"
-                      @click="selectBias(index, option)"
-                    >
-                      <v-list-item-title>{{ option }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-row>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+          <!-- Diagnosis Cards -->
+          <v-row class="mb-5" :style="{ marginTop: '-28vh' }"> 
+            <v-col cols="12" md="6" lg="6" v-for="(diagnosis, index) in diagnoses" :key="index">
+              <v-card class="custom-card" rounded="lg" style="height: 150px;">
+                <v-card-title class="text-h6">Diagnosis: {{ diagnosis.name }}</v-card-title>
+                <v-card-actions>
+                  <v-row justify="center" style="width: 100%;">
+                    <v-menu offset-y>
+                      <template #activator="{ props }">
+                        <v-btn outlined color="blue" v-bind="props">
+                          {{ diagnosis.selectedBias }} 
+                        </v-btn>
+                      </template>
+                      <v-list>
+                        <v-list-item @click="handleOption(index, 'High Bias')">
+                          <v-list-item-title>High Bias</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="handleOption(index, 'Medium Bias')">
+                          <v-list-item-title>Medium Bias</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="handleOption(index, 'Low Bias')">
+                          <v-list-item-title>Low Bias</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="handleOption(index, 'No Bias')">
+                          <v-list-item-title>No Bias</v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </v-row>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
 
-      <!-- Return to Home Button -->
-      <v-row justify="center" class="mt-6"> 
-        <v-btn color="#1976D2" text="Return to Home" href="/"></v-btn>
-      </v-row>
+          <!-- Return to Home Button -->
+          <v-row justify="center" class="mt-8">
+            <v-btn color="#1976D2" style="width: 200px; height: 50px;" text="Return to Home" href="/"></v-btn> 
+          </v-row>
 
         </v-responsive>
       </v-container>
@@ -101,7 +106,6 @@
 import { ref } from 'vue';
 
 const drawer = ref(true);
-const showSymptoms = ref(false);
 const patientProfile = ref({
   race: 'White',
   age: 55,
@@ -109,13 +113,16 @@ const patientProfile = ref({
   symptoms: ['Migraines', 'Excessive Sweating', 'Dry Skin', 'Nausea'],
 });
 
-const diagnoses: string[] = ["Dehydration", "Anemia", "Heatstroke", "Food Poisoning"];
-const biasOptions: string[] = ["High bias", "Medium bias", "Low bias", "No bias"];
-const selectedBias = ref<string[]>(Array(diagnoses.length).fill(""));
+const diagnoses = ref([
+  { name: "Dehydration", selectedBias: 'Select Bias Level' },
+  { name: "Anemia", selectedBias: 'Select Bias Level' },
+  { name: "Heatstroke", selectedBias: 'Select Bias Level' },
+  { name: "Food Poisoning", selectedBias: 'Select Bias Level' },
+]);
 
-const selectBias = (index: number, option: string) => {
-  selectedBias.value[index] = option; // Update selected bias
-  console.log(`Selected bias for ${diagnoses[index]}: ${option}`);
+const handleOption = (index: number, option: string) => {
+  diagnoses.value[index].selectedBias = option; 
+  console.log(`Selected for ${diagnoses.value[index].name}: ${option}`);
 };
 </script>
 
@@ -142,6 +149,7 @@ const selectBias = (index: number, option: string) => {
 
 .custom-theme .sidebar-title {
   font-weight: bold;
+  width: 100%; 
   font-size: 1.2rem;
   padding: 16px;
 }
@@ -166,24 +174,24 @@ const selectBias = (index: number, option: string) => {
 }
 
 .custom-theme .symptoms-list {
-  padding-left: 16px; /* Indent for the bullet list */
-  list-style-type: disc; /* Adds bullet points */
-  margin: 8px 0; /* Adds spacing around the list */
+  padding-left: 16px; 
+  list-style-type: disc; 
+  margin: 8px 0; 
 }
 
 .custom-theme .custom-card {
   text-align: center;
-  border: 1px solid rgba(109, 105, 105, 0.2); /* Light gray border */
-  background-color: white !important; /* Force white background */
+  border: 1px solid rgba(109, 105, 105, 0.2); 
+  background-color: white !important; 
   padding: 16px;
 }
 
 .custom-theme .bias-select {
-  border: 2px solid blue; /* Change to your desired outline color */
-  border-radius: 4px; /* Adjust border radius if needed */
+  border: 2px solid blue; 
+  border-radius: 4px; 
 }
 
 .custom-theme .bias-select:hover {
-  background-color: rgba(0, 0, 255, 0.1); /* Optional: Change background on hover */
+  background-color: rgba(0, 0, 255, 0.1); 
 }
 </style>
