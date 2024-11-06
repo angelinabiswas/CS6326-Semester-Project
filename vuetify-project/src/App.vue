@@ -12,12 +12,14 @@
       <v-container  class="fill-height d-flex align-center justify-center">
         <v-container class="pt-16" style="max-width: 600px; width: 100%;">
           <v-text-field
+            class="blue-outlined-text-field"
             label="Name"
             outlined>
           </v-text-field>
           <v-row>
             <v-col cols="4">
               <v-text-field
+                class="blue-outlined-text-field"
                 label="Age"
                 outlined
                 type="number"
@@ -27,6 +29,7 @@
 
             <v-col cols="4">
               <v-select
+                class="blue-outlined-text-field"
                 label="Race"
                 outlined
                 :items="['White', 'Asian', 'American Indian or Alaskan Native', 'Black/African American', 'Native Hawaiian or Pacific Islander']"
@@ -35,6 +38,7 @@
 
             <v-col cols="4">
               <v-select
+                class="blue-outlined-text-field"
                 label="Gender"
                 outlined
                 :items="['Male', 'Female', 'Transgender', 'Other']"
@@ -43,6 +47,7 @@
           </v-row>
 
           <v-text-field
+            class="blue-outlined-text-field"
             label="Symptoms"
             outlined
           ></v-text-field>
@@ -67,6 +72,14 @@
 /* trying to change border color */
 .custom-theme .v-text-field {
   border-color: gray;
+}
+
+.custom-theme .blue-outlined-text-field .v-input__control {
+  border: 2px solid #1976D2; /* Blue outline */
+}
+
+.custom-theme .blue-outlined-text-field input {
+  color: black; /* Black text */
 }
 
 .custom-theme .v-text-field label {
